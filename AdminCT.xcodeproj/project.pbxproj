@@ -15,6 +15,8 @@
 		0D0FCC5424EE1B8A00124D3C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0D0FCC5324EE1B8A00124D3C /* SnapKit */; };
 		0D0FCC5624EE1D9400124D3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */; };
 		0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */; };
+		0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5D24EE295C00124D3C /* MainViewController.swift */; };
+		0D0FCC6024EE2C3400124D3C /* package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5F24EE2C3400124D3C /* package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		0D0FCC4C24EE1AE100124D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
+		0D0FCC5D24EE295C00124D3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0D0FCC5F24EE2C3400124D3C /* package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,7 @@
 		0D0FCC3224EE1ADC00124D3C = {
 			isa = PBXGroup;
 			children = (
+				0D0FCC5F24EE2C3400124D3C /* package.swift */,
 				0D0FCC3D24EE1ADC00124D3C /* AdminCT */,
 				0D0FCC3C24EE1ADC00124D3C /* Products */,
 			);
@@ -64,7 +69,6 @@
 				0D0FCC5724EE1DF100124D3C /* Core */,
 				0D0FCC3E24EE1ADC00124D3C /* AppDelegate.swift */,
 				0D0FCC4024EE1ADC00124D3C /* SceneDelegate.swift */,
-				0D0FCC4224EE1ADC00124D3C /* SignInViewController.swift */,
 				0D0FCC4724EE1AE100124D3C /* Assets.xcassets */,
 				0D0FCC4924EE1AE100124D3C /* LaunchScreen.storyboard */,
 				0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */,
@@ -76,6 +80,7 @@
 		0D0FCC5724EE1DF100124D3C /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0D0FCC5C24EE293700124D3C /* Controllers */,
 				0D0FCC5824EE1DF800124D3C /* Views */,
 			);
 			path = Core;
@@ -94,6 +99,15 @@
 				0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0D0FCC5C24EE293700124D3C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FCC4224EE1ADC00124D3C /* SignInViewController.swift */,
+				0D0FCC5D24EE295C00124D3C /* MainViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,8 +189,10 @@
 			files = (
 				0D0FCC4324EE1ADC00124D3C /* SignInViewController.swift in Sources */,
 				0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */,
+				0D0FCC6024EE2C3400124D3C /* package.swift in Sources */,
 				0D0FCC3F24EE1ADC00124D3C /* AppDelegate.swift in Sources */,
 				0D0FCC4124EE1ADC00124D3C /* SceneDelegate.swift in Sources */,
+				0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
