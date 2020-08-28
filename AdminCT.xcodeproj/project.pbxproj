@@ -17,6 +17,7 @@
 		0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */; };
 		0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5D24EE295C00124D3C /* MainViewController.swift */; };
 		0D0FCC6024EE2C3400124D3C /* package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5F24EE2C3400124D3C /* package.swift */; };
+		0D717C2F24F88C6A00A77431 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D717C2E24F88C6A00A77431 /* Organization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
 		0D0FCC5D24EE295C00124D3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0D0FCC5F24EE2C3400124D3C /* package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = package.swift; sourceTree = "<group>"; };
+		0D717C2E24F88C6A00A77431 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		0D0FCC5724EE1DF100124D3C /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0D717C2D24F88C4C00A77431 /* Models */,
 				0D0FCC5C24EE293700124D3C /* Controllers */,
 				0D0FCC5824EE1DF800124D3C /* Views */,
 			);
@@ -108,6 +111,14 @@
 				0D0FCC5D24EE295C00124D3C /* MainViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0D717C2D24F88C4C00A77431 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D717C2E24F88C6A00A77431 /* Organization.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +202,7 @@
 				0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */,
 				0D0FCC6024EE2C3400124D3C /* package.swift in Sources */,
 				0D0FCC3F24EE1ADC00124D3C /* AppDelegate.swift in Sources */,
+				0D717C2F24F88C6A00A77431 /* Organization.swift in Sources */,
 				0D0FCC4124EE1ADC00124D3C /* SceneDelegate.swift in Sources */,
 				0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */,
 			);
