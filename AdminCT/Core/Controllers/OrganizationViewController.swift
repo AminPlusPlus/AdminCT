@@ -17,6 +17,8 @@ class OrganizationViewController: UIViewController {
             self.titleTextField.text      = org.name
             self.descriptionTextView.text = org.desc
             self.urlTextField.text        = org.url
+            
+            navigationItem.title = org.amount.description
         }
     }
     
@@ -26,7 +28,7 @@ class OrganizationViewController: UIViewController {
         let stackView          = UIStackView()
         stackView.spacing      = 5
         stackView.axis         = .vertical
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
         stackView.alignment    = .fill
         return stackView
     }()
@@ -40,7 +42,7 @@ class OrganizationViewController: UIViewController {
     fileprivate var titleLabel     : UILabel = {
         let label = UILabel()
         label.text = "Name Of Organization"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return label
     }()
     fileprivate var titleTextField : CTUITextField = {
@@ -49,16 +51,28 @@ class OrganizationViewController: UIViewController {
         
         return textField
     }()
+    fileprivate var descriptionLabel     : UILabel = {
+           let label = UILabel()
+           label.text = "About Organization"
+           label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+           return label
+       }()
     fileprivate var descriptionTextView : UITextView = {
-         let textView            = UITextView()
-         textView.text           = "Add description"
+         let textView             = UITextView()
+         textView.text            = "Add description"
          textView.isScrollEnabled = false
-     //    textView.textColor      = UIColor.lightGray
-         
+         textView.font            = UIFont.systemFont(ofSize: 15, weight: .medium)
+        
          return textView
      }()
-     fileprivate var urlTextField : UITextField = {
-         let textField           = UITextField()
+    fileprivate var urlLabel     : UILabel = {
+           let label = UILabel()
+           label.text = "Website Organization"
+           label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+           return label
+       }()
+     fileprivate var urlTextField : CTUITextField = {
+         let textField           = CTUITextField()
          textField.placeholder   = "Add Website address"
         
          
@@ -71,12 +85,16 @@ class OrganizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+       
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        view.addGestureRecognizer(tapGesture)
+        
         
         initView()
-        
-        
+    
     }
    
+
     
     private func initView () {
         view.backgroundColor = UIColor.systemBackground
@@ -85,10 +103,17 @@ class OrganizationViewController: UIViewController {
         
         navigationItem.rightBarButtonItem!.isEnabled = false
         
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator   = false
+    
+        
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubview(views: [logoImageView,titleLabel,titleTextField,urlTextField,descriptionTextView,])
+        stackView.addArrangedSubview(views: [logoImageView,
+                                             titleLabel,titleTextField,urlLabel,
+                                             urlTextField,descriptionLabel, descriptionTextView,])
         
+     
         
         //MARK:- Constains
         scrollView.snp.makeConstraints { (make) in
@@ -98,6 +123,7 @@ class OrganizationViewController: UIViewController {
     
         stackView.snp.makeConstraints { (make) in
             make.width.equalTo(scrollView)
+            make.leading.trailing.top.bottom.equalTo(scrollView)
         }
         logoImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100)
@@ -107,6 +133,10 @@ class OrganizationViewController: UIViewController {
     
     @objc func save(_ sender : UIButton) {
         
+    }
+    
+    @objc func endEditing(){
+         view.endEditing(true)
     }
 
 }

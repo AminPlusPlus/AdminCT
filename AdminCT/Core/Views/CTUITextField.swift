@@ -12,14 +12,9 @@ class CTUITextField: UITextField {
    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        let bottomLine = CALayer()
-        print(frame.height)
-        bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
-        bottomLine.backgroundColor = UIColor.red.cgColor
-        borderStyle = .none
-        layer.addSublayer(bottomLine)
-       
+        font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        borderStyle = .roundedRect
+    
     }
     
     
