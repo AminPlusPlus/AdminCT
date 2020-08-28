@@ -8,7 +8,12 @@
 
 import UIKit
 
+
+
 class MainViewController: UITableViewController {
+    
+    let organizations : [Organization] = HelpData.fakeOrganizationDate
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +25,53 @@ class MainViewController: UITableViewController {
     
     
     fileprivate func initView () {
+        
+        navigationItem.title = "Organizations"
+        
+        //Add navigation item
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewOrganization))
        
+        
+        
+        
         //MARK:- TableView
-        tableView.rowHeight = 100
+        tableView.rowHeight = 60
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
     }
+    
+    
+    @objc func addNewOrganization() {
+        let organizationViewController = OrganizationViewController()
+        navigationController?.pushViewController(organizationViewController, animated: true)
+    }
+    
+}
+
+
+extension MainViewController {
+   
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return organizations.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = organizations[indexPath.row].name
+        cell.selectionStyle = .none
+      
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let organizationViewController = OrganizationViewController()
+        organizationViewController.organization = organizations[indexPath.row]
+        navigationController?.pushViewController(organizationViewController, animated: true)
+  
+    }
+    
+    
     
 }
