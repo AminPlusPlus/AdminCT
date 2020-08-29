@@ -48,7 +48,7 @@ class OrganizationViewController: UIViewController {
     fileprivate var titleTextField : CTUITextField = {
         let textField           = CTUITextField()
         textField.placeholder   = "Add name of organization"
-        
+        textField.keyboardType  = .alphabet
         return textField
     }()
     fileprivate var descriptionLabel     : UILabel = {
@@ -72,9 +72,10 @@ class OrganizationViewController: UIViewController {
            return label
        }()
      fileprivate var urlTextField : CTUITextField = {
-         let textField           = CTUITextField()
-         textField.placeholder   = "Add Website address"
-        
+         let textField            = CTUITextField()
+         textField.placeholder    = "Add Website address"
+         textField.keyboardType   = .URL
+         
          
          return textField
      }()
