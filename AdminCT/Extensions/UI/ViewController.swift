@@ -56,5 +56,15 @@ extension UIViewController {
     
     
     //MARK:- Alert Indicator
+    func alertView(title : String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok      = UIAlertAction(title: "Okay", style: .default, handler: nil)
+       
+        alertController.addAction(ok)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
  

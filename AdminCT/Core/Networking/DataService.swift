@@ -8,17 +8,18 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 import CodableFirebase
 
 class DataService {
     
-    private static let reference = Database.database(url: "https://charity-3bade-867ae.firebaseio.com").reference()
+    private static let organizationReference = Database.database(url: "https://charity-3bade-867ae.firebaseio.com").reference().child("organization")
     
     
     /// Get All Organization
     /// - Parameter completionHandler: Return List Of Organizations
     static func getAllOrganizations(completionHandler: @escaping ((ListOrganization?,Error?) -> Void)) {
-        reference.child("organization").observeSingleEvent(of: .value) { (snapshot) in
+        organizationReference.observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value else {return}
             
             do {
@@ -40,7 +41,7 @@ class DataService {
     ///   - completionHandler: Return Organization
     static func getOrganization(name: String,completionHandler: @escaping ((Organization?,Error?) -> Void)) {
         
-        reference.child("organization/\(name)").observeSingleEvent(of: .value) { (snapshot) in
+        organizationReference.child(name).observeSingleEvent(of: .value) { (snapshot) in
                    guard let value = snapshot.value else {return}
                    
                    do {
@@ -52,5 +53,42 @@ class DataService {
                    }
                   
           }
+    }
+    
+    
+    /// Create New Organization
+    /// - Parameters:
+    ///   - name: Name of Organization
+    ///   - icon: Icon URL
+    ///   - amount: Amoun org Organization and by default is 0
+    ///   - url: URL address of Organization
+    ///   - desc: Organization Description
+    static func createOrganization(name              : String,
+                                   icon              : String,
+                                   amount            : Int = 0,
+                                   url               : String,
+                                   desc              : String,
+                                   completionHandler : @escaping (Organization?,Error?) -> Void
+                                   ) {
+        
+        let organization = Organization(name: name, icon: icon, amount: amount, url: url , desc: desc)
+        
+        let data = try! FirebaseEncoder().encode(organization)
+        
+        organizationReference.child(name).setValue(data) { (error, _ ) in
+            
+            //Created Organization
+            if error != nil {
+                completionHandler(nil,error)
+                return
+            }
+            
+             completionHandler(organization,nil)
+           
+        }
+    }
+    
+    static func updateOrganization(organization : Organization) {
+        
     }
 }

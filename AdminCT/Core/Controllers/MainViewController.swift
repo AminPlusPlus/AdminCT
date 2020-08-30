@@ -44,8 +44,18 @@ class MainViewController: UITableViewController {
             if error == nil {
                 
                 guard let org = org else {return}
-                print("Singer Organization : \(org)")
+               
             }
+        }
+        
+    
+        DataService.createOrganization(name: "Org1", icon: "url address", url: "website", desc: "description") { (org, error) in
+            
+            print(org)
+            if error == nil {
+                self.alertView(title: org?.name ?? "", message: "\(org?.name) Created!")
+            }
+            
         }
         
     }
