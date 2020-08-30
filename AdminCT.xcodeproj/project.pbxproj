@@ -16,11 +16,14 @@
 		0D0FCC5624EE1D9400124D3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */; };
 		0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */; };
 		0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5D24EE295C00124D3C /* MainViewController.swift */; };
-		0D0FCC6024EE2C3400124D3C /* package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5F24EE2C3400124D3C /* package.swift */; };
 		0D717C2F24F88C6A00A77431 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D717C2E24F88C6A00A77431 /* Organization.swift */; };
 		0D717C3224F88D6B00A77431 /* HelpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D717C3124F88D6B00A77431 /* HelpData.swift */; };
 		0D717C3424F8905100A77431 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D717C3324F8905100A77431 /* OrganizationViewController.swift */; };
 		0D717C3624F8BE3E00A77431 /* CTUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D717C3524F8BE3D00A77431 /* CTUITextField.swift */; };
+		0D74184A24FBFCCE00648906 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184924FBFCCE00648906 /* Networking.swift */; };
+		0D74184C24FBFCDE00648906 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184B24FBFCDE00648906 /* DataService.swift */; };
+		0D74184E24FC026F00648906 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184D24FC026F00648906 /* Extensions.swift */; };
+		0D74185124FC052500648906 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74185024FC052500648906 /* ViewController.swift */; };
 		0DB8A2BE24FB4AA90030DC4C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,11 +38,14 @@
 		0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
 		0D0FCC5D24EE295C00124D3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		0D0FCC5F24EE2C3400124D3C /* package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = package.swift; sourceTree = "<group>"; };
 		0D717C2E24F88C6A00A77431 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		0D717C3124F88D6B00A77431 /* HelpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpData.swift; sourceTree = "<group>"; };
 		0D717C3324F8905100A77431 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 		0D717C3524F8BE3D00A77431 /* CTUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTUITextField.swift; sourceTree = "<group>"; };
+		0D74184924FBFCCE00648906 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		0D74184B24FBFCDE00648906 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		0D74184D24FC026F00648906 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0D74185024FC052500648906 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +64,6 @@
 		0D0FCC3224EE1ADC00124D3C = {
 			isa = PBXGroup;
 			children = (
-				0D0FCC5F24EE2C3400124D3C /* package.swift */,
 				0D0FCC3D24EE1ADC00124D3C /* AdminCT */,
 				0D0FCC3C24EE1ADC00124D3C /* Products */,
 			);
@@ -92,6 +97,7 @@
 		0D0FCC5724EE1DF100124D3C /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0D74184824FBFCB900648906 /* Networking */,
 				0D717C2D24F88C4C00A77431 /* Models */,
 				0D0FCC5C24EE293700124D3C /* Controllers */,
 				0D0FCC5824EE1DF800124D3C /* Views */,
@@ -110,7 +116,8 @@
 		0D0FCC5924EE205900124D3C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */,
+				0D74184F24FC04F300648906 /* UI */,
+				0D74184D24FC026F00648906 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -139,6 +146,24 @@
 				0D717C3124F88D6B00A77431 /* HelpData.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0D74184824FBFCB900648906 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0D74184924FBFCCE00648906 /* Networking.swift */,
+				0D74184B24FBFCDE00648906 /* DataService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0D74184F24FC04F300648906 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */,
+				0D74185024FC052500648906 /* ViewController.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		0DB8A2BC24FB4A940030DC4C /* Commons */ = {
@@ -235,12 +260,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D0FCC4324EE1ADC00124D3C /* SignInViewController.swift in Sources */,
+				0D74184A24FBFCCE00648906 /* Networking.swift in Sources */,
 				0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */,
-				0D0FCC6024EE2C3400124D3C /* package.swift in Sources */,
+				0D74184C24FBFCDE00648906 /* DataService.swift in Sources */,
+				0D74185124FC052500648906 /* ViewController.swift in Sources */,
 				0D0FCC3F24EE1ADC00124D3C /* AppDelegate.swift in Sources */,
 				0D717C3424F8905100A77431 /* OrganizationViewController.swift in Sources */,
 				0D717C3224F88D6B00A77431 /* HelpData.swift in Sources */,
 				0D717C2F24F88C6A00A77431 /* Organization.swift in Sources */,
+				0D74184E24FC026F00648906 /* Extensions.swift in Sources */,
 				0D0FCC4124EE1ADC00124D3C /* SceneDelegate.swift in Sources */,
 				0D717C3624F8BE3E00A77431 /* CTUITextField.swift in Sources */,
 				0DB8A2BE24FB4AA90030DC4C /* Alerts.swift in Sources */,

@@ -12,7 +12,7 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    let organizations : [Organization] = HelpData.fakeOrganizationDate
+    var organizations : ListOrganization = [:]  //[Organization] = HelpData.fakeOrganizationDate
     
 
     override func viewDidLoad() {
@@ -20,6 +20,25 @@ class MainViewController: UITableViewController {
         // Do any additional setup after loading the view.
        
         initView()
+        let url = "https://charity-3bade-867ae.firebaseio.com/.json"
+        
+        startActivityIndicator(style: .large)
+        DataService.fetch(forUrl: url) { (listOrgs, error) in
+            
+            if error == nil {
+                
+                guard let orgs = listOrgs else { return  }
+                self.organizations = orgs
+                DispatchQueue.main.async {
+                     self.tableView.reloadData()
+                     self.stopActivityIndicator()
+                }
+               
+           
+            }
+            
+        }
+        
     }
     
     
@@ -58,7 +77,8 @@ extension MainViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = organizations[indexPath.row].name
+        
+        cell.textLabel?.text = organizations[indexPath.row].value.name ?? ""
         cell.selectionStyle = .none
       
         return cell
@@ -67,7 +87,8 @@ extension MainViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let organizationViewController = OrganizationViewController()
-        organizationViewController.organization = organizations[indexPath.row]
+       
+        organizationViewController.organization = organizations[indexPath.row].value
         navigationController?.pushViewController(organizationViewController, animated: true)
   
     }

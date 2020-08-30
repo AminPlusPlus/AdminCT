@@ -18,7 +18,7 @@ class OrganizationViewController: UIViewController{
             self.descriptionTextView.text = org.desc
             self.urlTextField.text        = org.url
             
-            navigationItem.title = org.amount.description
+            navigationItem.title = org.amount?.description
         }
     }
     
@@ -139,11 +139,13 @@ class OrganizationViewController: UIViewController{
             make.width.equalTo(scrollView)
             make.bottom.top.equalTo(scrollView)
         }
+       
         logoImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100)
         }
         
-
+        
+        
 
    
     }

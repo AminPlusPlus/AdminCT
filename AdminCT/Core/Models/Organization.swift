@@ -6,12 +6,17 @@
 //  Copyright © 2020 Aminjoni Abdullozoda. All rights reserved.
 //
 
+
+
 import Foundation
 
-struct Organization {
-    var name    : String
-    var icon    : String
-    var amount  : Int
-    var url     : String
-    var desc    : String
+struct Organization: Codable {
+    let name: String?
+    let icon: String?
+    let amount: Int?
+    let url: String?
+    let desc: String?
 }
+
+typealias ListOrganization = [String: Organization]
+
