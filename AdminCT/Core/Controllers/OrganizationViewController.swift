@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class OrganizationViewController: UIViewController {
+class OrganizationViewController: UIViewController{
     
     var organization : Organization?  {
         didSet {
@@ -32,11 +32,19 @@ class OrganizationViewController: UIViewController {
         stackView.alignment    = .fill
         return stackView
     }()
-    fileprivate var logoImageView : UIImageView = {
-        let imageView           = UIImageView()
-        imageView.image         = UIImage(systemName: "plus.circle.fill")
-        imageView.contentMode   = .scaleAspectFit
-        imageView.clipsToBounds = true
+    fileprivate lazy var logoImageView : UIImageView = {
+        [unowned self] in
+        let imageView                      = UIImageView()
+        imageView.image                    = UIImage(systemName: "plus.circle.fill")
+        imageView.contentMode              = .scaleAspectFit
+        imageView.clipsToBounds            = true
+        imageView.isUserInteractionEnabled = true
+        imageView.layer.cornerRadius       = 50
+        
+        //Tap Gesture
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openSelectImage(_:)) )
+        imageView.addGestureRecognizer(tapGesture)
+        
         return imageView
     }()
     fileprivate var titleLabel     : UILabel = {
@@ -81,7 +89,7 @@ class OrganizationViewController: UIViewController {
      }()
     
     
-
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,11 +100,16 @@ class OrganizationViewController: UIViewController {
         
         
         initView()
+        
+        //Image Picker Declaration
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        
     
     }
    
 
-    
     private func initView () {
         view.backgroundColor = UIColor.systemBackground
         
@@ -124,11 +137,15 @@ class OrganizationViewController: UIViewController {
     
         stackView.snp.makeConstraints { (make) in
             make.width.equalTo(scrollView)
-            make.leading.trailing.top.bottom.equalTo(scrollView)
+            make.bottom.top.equalTo(scrollView)
         }
         logoImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(100)
         }
+        
+
+
+   
     }
     
     
@@ -139,5 +156,24 @@ class OrganizationViewController: UIViewController {
     @objc func endEditing(){
          view.endEditing(true)
     }
+    
+    @objc func openSelectImage(_ sender : UIPanGestureRecognizer) {
 
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+
+}
+extension OrganizationViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+   
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //Set Image
+        if let image = info[.originalImage] as? UIImage {
+            self.logoImageView.image = image
+            imagePicker.dismiss(animated: true, completion: nil)
+        }
+        
+        
+    }
 }

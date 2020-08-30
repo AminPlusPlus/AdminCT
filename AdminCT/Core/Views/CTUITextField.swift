@@ -27,19 +27,12 @@ class CTUITextField: UITextField, UITextFieldDelegate{
     private func initView(){
         
         font            = UIFont.systemFont(ofSize: 15, weight: .medium)
-        borderStyle     = .roundedRect
+        borderStyle     = .line
         returnKeyType   = .done
-        
-        //Under Line
-        let underLineLayer = CALayer()
-        underLineLayer.frame = CGRect(x: 0.0, y: 20, width: 150, height: 0.8)
-        underLineLayer.backgroundColor = UIColor.blue.cgColor
-        layer.addSublayer(underLineLayer)
-        
+                
     }
     
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
