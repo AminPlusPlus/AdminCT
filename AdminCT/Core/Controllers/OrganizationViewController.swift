@@ -145,7 +145,12 @@ class OrganizationViewController: UIViewController{
         }
         
         
-        
+        titleTextField.snp.makeConstraints { (make) in
+            make.height.equalTo(35)
+        }
+        urlTextField.snp.makeConstraints { (make) in
+            make.height.equalTo(35)
+        }
 
    
     }

@@ -20,26 +20,37 @@ class MainViewController: UITableViewController {
         // Do any additional setup after loading the view.
        
         initView()
-        let url = "https://charity-3bade-867ae.firebaseio.com/.json"
-        
-        startActivityIndicator(style: .large)
-        DataService.fetch(forUrl: url) { (listOrgs, error) in
-            
+        startActivityIndicator()
+        DataService.getAllOrganizations { (listOrgs, error) in
+           
             if error == nil {
                 
                 guard let orgs = listOrgs else { return  }
                 self.organizations = orgs
+                
                 DispatchQueue.main.async {
                      self.tableView.reloadData()
                      self.stopActivityIndicator()
+                    
                 }
-               
-           
             }
+            
+            //Error Message
+            print(error?.localizedDescription)
             
         }
         
+        DataService.getOrganization(name: "Support Belarus") { (org, error) in
+            if error == nil {
+                
+                guard let org = org else {return}
+                print("Singer Organization : \(org)")
+            }
+        }
+        
     }
+    
+    
     
     
     

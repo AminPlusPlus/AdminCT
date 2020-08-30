@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		0D0FCC4324EE1ADC00124D3C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC4224EE1ADC00124D3C /* SignInViewController.swift */; };
 		0D0FCC4824EE1AE100124D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FCC4724EE1AE100124D3C /* Assets.xcassets */; };
 		0D0FCC4B24EE1AE100124D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FCC4924EE1AE100124D3C /* LaunchScreen.storyboard */; };
-		0D0FCC5424EE1B8A00124D3C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0D0FCC5324EE1B8A00124D3C /* SnapKit */; };
 		0D0FCC5624EE1D9400124D3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5524EE1D9400124D3C /* GoogleService-Info.plist */; };
 		0D0FCC5B24EE208100124D3C /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5A24EE208100124D3C /* StackViewExtension.swift */; };
 		0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FCC5D24EE295C00124D3C /* MainViewController.swift */; };
@@ -25,6 +24,7 @@
 		0D74184E24FC026F00648906 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184D24FC026F00648906 /* Extensions.swift */; };
 		0D74185124FC052500648906 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74185024FC052500648906 /* ViewController.swift */; };
 		0DB8A2BE24FB4AA90030DC4C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */; };
+		3CD140F88EB1D3CF24B4ED2D /* Pods_AdminCT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493EA5D41006DBFE2913E5D9 /* Pods_AdminCT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +47,9 @@
 		0D74184D24FC026F00648906 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D74185024FC052500648906 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		493EA5D41006DBFE2913E5D9 /* Pods_AdminCT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdminCT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CB81CD4A422C61E02423511 /* Pods-AdminCT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdminCT.debug.xcconfig"; path = "Target Support Files/Pods-AdminCT/Pods-AdminCT.debug.xcconfig"; sourceTree = "<group>"; };
+		C9FB0F394087BB0F67F3B1DD /* Pods-AdminCT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdminCT.release.xcconfig"; path = "Target Support Files/Pods-AdminCT/Pods-AdminCT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D0FCC5424EE1B8A00124D3C /* SnapKit in Frameworks */,
+				3CD140F88EB1D3CF24B4ED2D /* Pods_AdminCT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +69,8 @@
 			children = (
 				0D0FCC3D24EE1ADC00124D3C /* AdminCT */,
 				0D0FCC3C24EE1ADC00124D3C /* Products */,
+				D3CB5A3D15F0A8A1BA6CC264 /* Pods */,
+				DD6189D3E16C79728285ED78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,6 +187,24 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		D3CB5A3D15F0A8A1BA6CC264 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5CB81CD4A422C61E02423511 /* Pods-AdminCT.debug.xcconfig */,
+				C9FB0F394087BB0F67F3B1DD /* Pods-AdminCT.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DD6189D3E16C79728285ED78 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				493EA5D41006DBFE2913E5D9 /* Pods_AdminCT.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -189,18 +212,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D0FCC4F24EE1AE100124D3C /* Build configuration list for PBXNativeTarget "AdminCT" */;
 			buildPhases = (
+				7F003D3EE53C45A6CEAF1A2C /* [CP] Check Pods Manifest.lock */,
 				0D0FCC3724EE1ADC00124D3C /* Sources */,
 				0D0FCC3824EE1ADC00124D3C /* Frameworks */,
 				0D0FCC3924EE1ADC00124D3C /* Resources */,
+				75A87C0FAFDE6D72878672AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = AdminCT;
-			packageProductDependencies = (
-				0D0FCC5324EE1B8A00124D3C /* SnapKit */,
-			);
 			productName = AdminCT;
 			productReference = 0D0FCC3B24EE1ADC00124D3C /* AdminCT.app */;
 			productType = "com.apple.product-type.application";
@@ -229,9 +251,6 @@
 				Base,
 			);
 			mainGroup = 0D0FCC3224EE1ADC00124D3C;
-			packageReferences = (
-				0D0FCC5224EE1B8A00124D3C /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = 0D0FCC3C24EE1ADC00124D3C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -253,6 +272,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75A87C0FAFDE6D72878672AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdminCT/Pods-AdminCT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdminCT/Pods-AdminCT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdminCT/Pods-AdminCT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F003D3EE53C45A6CEAF1A2C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AdminCT-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0D0FCC3724EE1ADC00124D3C /* Sources */ = {
@@ -406,6 +467,7 @@
 		};
 		0D0FCC5024EE1AE100124D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CB81CD4A422C61E02423511 /* Pods-AdminCT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -424,6 +486,7 @@
 		};
 		0D0FCC5124EE1AE100124D3C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9FB0F394087BB0F67F3B1DD /* Pods-AdminCT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -462,25 +525,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0D0FCC5224EE1B8A00124D3C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0D0FCC5324EE1B8A00124D3C /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0D0FCC5224EE1B8A00124D3C /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0D0FCC3324EE1ADC00124D3C /* Project object */;
 }

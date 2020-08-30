@@ -12,13 +12,10 @@ import SnapKit
 extension UIViewController {
     
     
-    
-    
-    
     //MARK:- Acitivity Indicator
     /// Acitivity Indicator
     /// - Parameter style: Set style of Indicator
-    func startActivityIndicator(style : UIActivityIndicatorView.Style) {
+    func startActivityIndicator() {
         let indicator                         = UIActivityIndicatorView(style: .large)
         indicator.color                       = UIColor(named: "ActivityIndicator")
         let indicatorView                     = UIView()
@@ -56,5 +53,8 @@ extension UIViewController {
             indicator.removeFromSuperview()
         }
     }
+    
+    
+    //MARK:- Alert Indicator
 }
  

@@ -7,52 +7,50 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import CodableFirebase
 
 class DataService {
     
-    static var cache = NSCache<NSString,UIImage>()
-
-    static func fetch(forUrl url: String, completionHandler: @escaping ((ListOrganization?,Error?) -> Void)) {
-       
-        guard let url = URL(string: url) else {
-            completionHandler(nil,NetworkError.urlInvalid(message: "URL is not correct"))
-            return
-            
-        }
-        
-        let request = URLSession.shared.dataTask(with: url) { (data, responce, error) in
-           
-            //if somethign wrong most case no wireless connection
-            if let err = error  {
-                completionHandler(nil,NetworkError.generalError(message: err.localizedDescription))
-                return
-            }
-        
-            //Checking repsonce is 200
-            guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {
-                completionHandler(nil,NetworkError.invalidPayload)
-                return
-            }
-        
-            //check for valida Data from server
-            guard let data = data else {
-                completionHandler(nil, NetworkError.generalError(message: "Data received is invalid"))
-                return
-            }
+    private static let reference = Database.database(url: "https://charity-3bade-867ae.firebaseio.com").reference()
+    
+    
+    /// Get All Organization
+    /// - Parameter completionHandler: Return List Of Organizations
+    static func getAllOrganizations(completionHandler: @escaping ((ListOrganization?,Error?) -> Void)) {
+        reference.child("organization").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value else {return}
             
             do {
-                let decoder = JSONDecoder()
-                let org = try decoder.decode(ListOrganization.self, from: data)
-                
-                completionHandler(org,nil)
-                
-            }catch {
-                completionHandler(nil,NetworkError.invalidPayload)
+                let orgs = try FirebaseDecoder().decode(ListOrganization.self, from: value)
+                completionHandler(orgs,nil)
             }
-        
+            catch let error {
+                completionHandler(nil,error)
+            }
+           
         }
-        
-        request.resume()
     }
     
+    
+    
+    /// Get Organization by item
+    /// - Parameters:
+    ///   - name: Name of Organization
+    ///   - completionHandler: Return Organization
+    static func getOrganization(name: String,completionHandler: @escaping ((Organization?,Error?) -> Void)) {
+        
+        reference.child("organization/\(name)").observeSingleEvent(of: .value) { (snapshot) in
+                   guard let value = snapshot.value else {return}
+                   
+                   do {
+                       let org = try FirebaseDecoder().decode(Organization.self, from: value)
+                       completionHandler(org,nil)
+                   }
+                   catch let error {
+                       completionHandler(nil,error)
+                   }
+                  
+          }
+    }
 }
