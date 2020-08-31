@@ -94,17 +94,17 @@ class OrganizationViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-       
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         view.addGestureRecognizer(tapGesture)
-        
-        
-        initView()
-        
+
         //Image Picker Declaration
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
+
+        initView()
+
+
         
     
     }
@@ -115,7 +115,7 @@ class OrganizationViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action:#selector(save(_:)))
         
-        navigationItem.rightBarButtonItem!.isEnabled = false
+      //  navigationItem.rightBarButtonItem!.isEnabled = false
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator   = false
@@ -131,20 +131,18 @@ class OrganizationViewController: UIViewController{
         
         //MARK:- Constains
         scrollView.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(self.view)
-            make.left.right.equalTo(self.view).inset(20)
+            make.top.bottom.equalToSuperview()
+            make.left.right.equalToSuperview().inset(20)
         }
     
+        logoImageView.snp.makeConstraints { (make) in
+            make.size.equalTo(100)
+        }
         stackView.snp.makeConstraints { (make) in
-            make.width.equalTo(scrollView)
-            make.bottom.top.equalTo(scrollView)
+            make.width.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(20)
         }
        
-        logoImageView.snp.makeConstraints { (make) in
-            make.height.width.equalTo(100)
-        }
-        
-        
         titleTextField.snp.makeConstraints { (make) in
             make.height.equalTo(35)
         }
@@ -158,6 +156,10 @@ class OrganizationViewController: UIViewController{
     
     @objc func save(_ sender : UIButton) {
         
+        guard let image = logoImageView.image  else { return  }
+        guard let imageData = image.pngData() else { return  }
+        
+        DataService.uploadImage(data: imageData)
     }
     
     @objc func endEditing(){

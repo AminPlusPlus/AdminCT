@@ -15,6 +15,10 @@ class DataService {
     
     private static let organizationReference = Database.database(url: "https://charity-3bade-867ae.firebaseio.com").reference().child("organization")
     
+    private static let storageReference = Storage.storage().reference()
+    
+    
+    //MARK:- DataBase Real Time Reference
     
     /// Get All Organization
     /// - Parameter completionHandler: Return List Of Organizations
@@ -88,7 +92,52 @@ class DataService {
         }
     }
     
-    static func updateOrganization(organization : Organization) {
+    
+    /// Update Organization
+    /// - Parameters:
+    ///   - organization: Organization
+    ///   - completionHandler: Complete (Organization, Error)
+    static func updateOrganization(organization : Organization, completionHandler : @escaping (Organization?,Error?) -> Void) {
+         let data = try! FirebaseEncoder().encode(organization)
+        
+        guard let name = organization.name else { return  }
+         
+         organizationReference.child(name).setValue(data) { (error, _ ) in
+            
+            //Created Organization
+            if error != nil {
+                completionHandler(nil,error)
+                return
+            }
+            
+             completionHandler(organization,nil)
+           
+        }
+    }
+    
+
+    
+    //MARK:- Data Storage
+    static func uploadImage(data : Data) {
+        
+        let uploadTask = storageReference.child("demo_admin.png").putData(data, metadata: nil) { (storageRefer, error) in
+           
+            if error == nil {
+                print("UPLOADED : \(storageRefer?.storageReference?.fullPath)")
+                return
+                
+            }
+            
+            print(error.debugDescription)
+      
+        }
         
     }
+    
+    
+    
+    
+    
+    
+    
 }
