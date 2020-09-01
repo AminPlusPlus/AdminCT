@@ -115,7 +115,7 @@ class OrganizationViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action:#selector(save(_:)))
         
-      //  navigationItem.rightBarButtonItem!.isEnabled = false
+      //x  navigationItem.rightBarButtonItem!.isEnabled = false
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator   = false
@@ -159,7 +159,15 @@ class OrganizationViewController: UIViewController{
         guard let image = logoImageView.image  else { return  }
         guard let imageData = image.pngData() else { return  }
         
-        DataService.uploadImage(data: imageData)
+        
+        DataService.uploadImage(data: imageData) { (message, error) in
+            if error == nil {
+                self.alertView(title: "Uploaded", message: "path \(message)")
+                return
+            }
+        }
+        
+        
     }
     
     @objc func endEditing(){

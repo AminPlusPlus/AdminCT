@@ -118,21 +118,27 @@ class DataService {
 
     
     //MARK:- Data Storage
-    static func uploadImage(data : Data) {
+    
+    
+    /// Upload Image
+    /// - Parameter data: Image Data
+    static func uploadImage(data : Data, completionHandler : @escaping (String?, Error?) -> Void) {
         
         let uploadTask = storageReference.child("demo_admin.png").putData(data, metadata: nil) { (storageRefer, error) in
            
             if error == nil {
-                print("UPLOADED : \(storageRefer?.storageReference?.fullPath)")
+                completionHandler(storageRefer?.storageReference?.fullPath,nil)
                 return
                 
             }
             
-            print(error.debugDescription)
+            completionHandler(nil,error)
       
         }
         
     }
+    
+    
     
     
     

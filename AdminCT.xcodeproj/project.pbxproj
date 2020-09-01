@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,6 +88,7 @@
 				0DB8A2BC24FB4A940030DC4C /* Commons */,
 				0D717C3024F88D4F00A77431 /* Helpers */,
 				0D0FCC5924EE205900124D3C /* Extensions */,
+				0D0FCC5C24EE293700124D3C /* Controllers */,
 				0D0FCC5724EE1DF100124D3C /* Core */,
 				0D0FCC3E24EE1ADC00124D3C /* AppDelegate.swift */,
 				0D0FCC4024EE1ADC00124D3C /* SceneDelegate.swift */,
@@ -104,7 +105,6 @@
 			children = (
 				0D74184824FBFCB900648906 /* Networking */,
 				0D717C2D24F88C4C00A77431 /* Models */,
-				0D0FCC5C24EE293700124D3C /* Controllers */,
 				0D0FCC5824EE1DF800124D3C /* Views */,
 			);
 			path = Core;
@@ -193,7 +193,6 @@
 				5CB81CD4A422C61E02423511 /* Pods-AdminCT.debug.xcconfig */,
 				C9FB0F394087BB0F67F3B1DD /* Pods-AdminCT.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
