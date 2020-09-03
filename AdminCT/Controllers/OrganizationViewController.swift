@@ -88,6 +88,17 @@ class OrganizationViewController: UIViewController{
          return textField
      }()
     
+    fileprivate lazy var saveBarBtnItem = UIBarButtonItem(title: "Save", style: .done, target: self, action:#selector(save(_:)))
+    
+    fileprivate var activityIndicator : UIBarButtonItem  = {
+        
+        let indicator                         = UIActivityIndicatorView(style: .medium)
+        let btnItem = UIBarButtonItem(customView: indicator)
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        return btnItem
+    }()
+    
     
     let imagePicker = UIImagePickerController()
 
@@ -105,15 +116,13 @@ class OrganizationViewController: UIViewController{
         initView()
 
 
-        
-    
     }
    
 
     private func initView () {
         view.backgroundColor = UIColor.systemBackground
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action:#selector(save(_:)))
+        navigationItem.rightBarButtonItem = saveBarBtnItem
         
       //x  navigationItem.rightBarButtonItem!.isEnabled = false
         
@@ -158,12 +167,19 @@ class OrganizationViewController: UIViewController{
         
         guard let image = logoImageView.image  else { return  }
         guard let imageData = image.pngData() else { return  }
-        
+
+        //indicator
+        navigationItem.rightBarButtonItem = activityIndicator
         
         DataService.uploadImage(data: imageData) { (message, error) in
+             
             if error == nil {
-                self.alertView(title: "Uploaded", message: "path \(message)")
-                return
+                
+                self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+                    self.alertView(title: "Uploaded", message: "path \(message)")
+                
+                
+            
             }
         }
         
