@@ -100,7 +100,7 @@ class DataService {
     static func updateOrganization(organization : Organization, completionHandler : @escaping (Organization?,Error?) -> Void) {
          let data = try! FirebaseEncoder().encode(organization)
         
-        guard let name = organization.name else { return  }
+         let name = organization.name 
          
          organizationReference.child(name).setValue(data) { (error, _ ) in
             
@@ -143,8 +143,6 @@ class DataService {
                      completionHandler(nil,error)
                       return
                     }
-                    print(downloadURL.absoluteString)
-                    
                     completionHandler(downloadURL.absoluteString,nil)
             }
         }

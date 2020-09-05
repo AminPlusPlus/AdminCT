@@ -16,15 +16,21 @@ class OrganizationViewController: UIViewController{
         didSet {
             guard let org = organization else { return  }
             self.titleTextField.text      = org.name
+            self.titleTextField.isUserInteractionEnabled = false
             self.descriptionTextView.text = org.desc
             self.urlTextField.text        = org.url
             
-            guard let pathImage = org.icon else {return}
-            guard let urlImage = URL(string: pathImage) else { return }
+            navigationItem.title = org.amount.description
+        
+            guard let urlImage = URL(string: org.icon) else { return }
             
-            self.logoImageView.kf.setImage(with: urlImage,placeholder: UIImage(systemName: "plus.circle.fill"))
+            //fetch image data
+            self.logoImageView.kf.setImage(with: urlImage, placeholder: self.currentImage)  { [unowned self] (result) in
+                self.currentImage = self.logoImageView.image
+            }
             
-            navigationItem.title = org.amount?.description
+           
+            
         }
     }
     
@@ -39,11 +45,11 @@ class OrganizationViewController: UIViewController{
         return stackView
     }()
     
-    fileprivate var defaultImage = UIImage(systemName: "plus.circle.fill")
+    fileprivate var currentImage = UIImage(systemName: "plus.circle.fill")
     fileprivate lazy var logoImageView : UIImageView = {
         [unowned self] in
         let imageView                      = UIImageView()
-        imageView.image                    = defaultImage
+        imageView.image                    = currentImage
         imageView.contentMode              = .scaleAspectFit
         imageView.clipsToBounds            = true
         imageView.isUserInteractionEnabled = true
@@ -62,9 +68,10 @@ class OrganizationViewController: UIViewController{
         return label
     }()
     fileprivate var titleTextField : CTUITextField = {
-        let textField           = CTUITextField()
-        textField.placeholder   = "Add name of organization"
-        textField.keyboardType  = .alphabet
+        let textField                = CTUITextField()
+        textField.placeholder        = "Add name of organization"
+        textField.keyboardType       = .alphabet
+        textField.autocorrectionType = .no
         return textField
     }()
     fileprivate var descriptionLabel     : UILabel = {
@@ -74,11 +81,12 @@ class OrganizationViewController: UIViewController{
            return label
        }()
     fileprivate var descriptionTextView : UITextView = {
-         let textView             = UITextView()
-         textView.text            = "Add description"
-         textView.isScrollEnabled = false
-         textView.font            = UIFont.systemFont(ofSize: 15, weight: .medium)
-         textView.backgroundColor = .clear
+         let textView               = UITextView()
+         textView.text              = "Add description"
+         textView.isScrollEnabled   = false
+         textView.font              = UIFont.systemFont(ofSize: 15, weight: .medium)
+         textView.backgroundColor   = .clear
+        textView.autocorrectionType = .no
         
          return textView
      }()
@@ -89,9 +97,10 @@ class OrganizationViewController: UIViewController{
            return label
        }()
      fileprivate var urlTextField : CTUITextField = {
-         let textField            = CTUITextField()
-         textField.placeholder    = "Add Website address"
-         textField.keyboardType   = .URL
+         let textField                 = CTUITextField()
+         textField.placeholder         = "Add Website address"
+         textField.keyboardType        = .URL
+         textField.autocorrectionType  = .no
          
          
          return textField
@@ -121,10 +130,13 @@ class OrganizationViewController: UIViewController{
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
+        //Set new organization if is not exist
+        if organization == nil {
+            self.organization = Organization()
+        }
 
         initView()
-
-
+    
     }
    
 
@@ -172,8 +184,11 @@ class OrganizationViewController: UIViewController{
     
     
     @objc func save(_ sender : UIButton) {
-            
-        //validation
+        
+
+        
+        
+        //Validation Input Fields
         guard let name = titleTextField.text,  !name.isEmpty else {
              self.alertView(title: "Name Organization", message: "Make sure update Name organization")
             return}
@@ -186,39 +201,112 @@ class OrganizationViewController: UIViewController{
               self.alertView(title: "Description", message: "Make sure update Description organization")
             return
         }
+        
+        //Update organization
+        if let organization = organization {
+            
+            var logoImagePath = organization.icon
+            
+            guard let image = logoImageView.image else {return}
+            guard let imageData   = image.pngData() else { return  }
+            
+            //New Image Added // Upload create
+            if image  != currentImage {
+                DataService.uploadImage(fileName: organization.name, data: imageData) { (path, err) in
+                    
+                    guard err == nil else {
+                        self.alertView(title: "Opps", message: "Something wrong with uploading Image")
+                        return
+                        
+                    }
+                    
+                    guard let fullPath = path else {return}
+                    
+                    let updateOrg = Organization(name: organization.name, icon: fullPath, amount: organization.amount, url: urlOrg, desc: descOrganization)
+                    
+                    DataService.updateOrganization(organization: updateOrg) { (org, error) in
+                        guard let updateOrg = org else {return}
+                        self.alertView(title: "Updated", message: "update organization \(updateOrg.name)")
+                        self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+                        return
+                    }
+                    
+                }
+            }
+            
+            let updateOrg = Organization(name: organization.name, icon: logoImagePath, amount: organization.amount, url: urlOrg, desc: descOrganization)
+            
+            DataService.updateOrganization(organization: updateOrg) { (org, error) in
+                guard let updateOrg = org else {return}
+                self.alertView(title: "Update", message: "update organization \(updateOrg.name)")
+                self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+                return
+            }
+            
+        }
+        
+             
+        //MARK:- Save new Organization
+
+        
         //indicator
         navigationItem.rightBarButtonItem = activityIndicator
         
         //image
-        guard let image       = logoImageView.image, image != defaultImage else {
+        guard let image       = logoImageView.image, image != currentImage else {
             self.alertView(title: "Image Missing", message: "Make sure update Logo organization")
             return}
         guard let imageData   = image.pngData() else { return  }
 
        
+        let fullImagePath = self.uploadImageSync(name: name, imageData: imageData)
+        
+        DataService.createOrganization(name: name, icon: fullImagePath, url: urlOrg, desc: descOrganization) { (org, err) in
+            
+            guard let newOrg = org else {return}
+            self.alertView(title: "Created", message: "New organization \(newOrg.name) created!")
+            self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+            return
+            
+        }
+        
         
         //upload image
-        DataService.uploadImage(fileName: name,data: imageData) { (message, error) in
-             
-            if error == nil {
-                
+        DataService.uploadImage(fileName: name,data: imageData) { [unowned self] (message, error)  in
+
+                guard error == nil else {
+                     self.alertView(title: "Opps", message: "Something wrong with uploading Image")
+                      return}
+
                 guard let iconPath = message else {
                      self.alertView(title: "Opps", message: "Something wrong with uploading Image")
+                     self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
                     return  }
-                                   
+
                 DataService.createOrganization(name: name, icon: iconPath, url: urlOrg, desc: descOrganization) { (org, err) in
-                    
+
                     guard let newOrg = org else {return}
                     self.alertView(title: "Created", message: "New organization \(newOrg.name) created!")
                     self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
                     return
-                    
+
                 }
-                
-        
-            }
+
+
+            
         }
         
+        
+    }
+    
+    
+    /// Update Current Organization
+    fileprivate func updateCurrentOrganization () {
+        
+    }
+    
+    /// Create new Organization
+    fileprivate func  createNewOrganization () {
         
     }
     
@@ -230,6 +318,26 @@ class OrganizationViewController: UIViewController{
 
         present(imagePicker, animated: true, completion: nil)
         
+    }
+    
+    func uploadImageSync(name : String, imageData : Data) -> String {
+        
+        var fullPath = ""
+        DispatchQueue.main.sync {
+            DataService.uploadImage(fileName: name,data: imageData) { [unowned self] (message, error)  in
+                 
+                if error == nil {
+                    
+                    guard let iconPath = message else {
+                         self.alertView(title: "Opps", message: "Something wrong with uploading Image")
+                        return  }
+                    
+                    fullPath = iconPath
+                }
+            }
+        }
+        
+        return fullPath
     }
 
 }
