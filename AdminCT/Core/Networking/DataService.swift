@@ -132,9 +132,12 @@ class DataService {
                 
             }
             
+            
+            
             completionHandler(nil,error)
       
         }
+        uploadTask.resume()
         
     }
     

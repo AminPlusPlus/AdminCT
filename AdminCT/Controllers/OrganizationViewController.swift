@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class OrganizationViewController: UIViewController{
     
@@ -17,6 +18,11 @@ class OrganizationViewController: UIViewController{
             self.titleTextField.text      = org.name
             self.descriptionTextView.text = org.desc
             self.urlTextField.text        = org.url
+            
+            guard let pathImage = org.icon else {return}
+            guard let urlImage = URL(string: pathImage) else { return }
+            
+            self.logoImageView.kf.setImage(with: urlImage,placeholder: UIImage(systemName: "plus.circle.fill"))
             
             navigationItem.title = org.amount?.description
         }
@@ -70,6 +76,7 @@ class OrganizationViewController: UIViewController{
          textView.text            = "Add description"
          textView.isScrollEnabled = false
          textView.font            = UIFont.systemFont(ofSize: 15, weight: .medium)
+         textView.backgroundColor = .clear
         
          return textView
      }()
@@ -120,11 +127,11 @@ class OrganizationViewController: UIViewController{
    
 
     private func initView () {
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = UIColor(named: "OrgViewBG")
         
         navigationItem.rightBarButtonItem = saveBarBtnItem
         
-      //x  navigationItem.rightBarButtonItem!.isEnabled = false
+        navigationItem.rightBarButtonItem!.isEnabled = false
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator   = false
