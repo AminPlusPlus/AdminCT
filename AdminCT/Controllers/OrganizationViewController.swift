@@ -38,10 +38,12 @@ class OrganizationViewController: UIViewController{
         stackView.alignment    = .fill
         return stackView
     }()
+    
+    fileprivate var defaultImage = UIImage(systemName: "plus.circle.fill")
     fileprivate lazy var logoImageView : UIImageView = {
         [unowned self] in
         let imageView                      = UIImageView()
-        imageView.image                    = UIImage(systemName: "plus.circle.fill")
+        imageView.image                    = defaultImage
         imageView.contentMode              = .scaleAspectFit
         imageView.clipsToBounds            = true
         imageView.isUserInteractionEnabled = true
@@ -131,7 +133,7 @@ class OrganizationViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = saveBarBtnItem
         
-        navigationItem.rightBarButtonItem!.isEnabled = false
+        //navigationItem.rightBarButtonItem!.isEnabled = false
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator   = false
@@ -172,21 +174,32 @@ class OrganizationViewController: UIViewController{
     
     @objc func save(_ sender : UIButton) {
         
-        guard let image = logoImageView.image  else { return  }
-        guard let imageData = image.pngData() else { return  }
+    
+        
+        guard let title       =  titleLabel.text, !title.isEmpty else {
+            self.alertView(title: "Missing Title", message: "Make sure title is not missing or empty")
+            return}
+        guard let urlWebsite  =  urlLabel.text, !urlWebsite.isEmpty else {
+            self.alertView(title: "Missing Website", message: "Make sure website address added correctly")
+            return}
+       
+        
+        //image
+        guard let image       = logoImageView.image, image == defaultImage else {
+            self.alertView(title: "Image Missing", message: "Make sure update Logo organization")
+            return}
+        guard let imageData   = image.pngData() else { return  }
 
         //indicator
         navigationItem.rightBarButtonItem = activityIndicator
         
+        //upload image
         DataService.uploadImage(data: imageData) { (message, error) in
              
             if error == nil {
                 
                 self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-                    self.alertView(title: "Uploaded", message: "path \(message)")
-                
-                
-            
+                    //self.alertView(title: "Uploaded", message: "path \(message)")
             }
         }
         
