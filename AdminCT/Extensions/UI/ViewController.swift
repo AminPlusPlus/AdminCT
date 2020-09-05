@@ -63,8 +63,20 @@ extension UIViewController {
        
         alertController.addAction(ok)
         
+        
         present(alertController, animated: true, completion: nil)
     }
     
+    //MARK:- Accept Alert Controller
+    func alertView(title : String, message : String, acceptAction : UIAlertAction ) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancel      = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(acceptAction)
+        alertController.addAction(cancel)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
  

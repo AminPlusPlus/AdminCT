@@ -133,7 +133,6 @@ class OrganizationViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = saveBarBtnItem
         
-        //navigationItem.rightBarButtonItem!.isEnabled = false
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator   = false
@@ -173,6 +172,22 @@ class OrganizationViewController: UIViewController{
     
     
     @objc func save(_ sender : UIButton) {
+            
+        //validation
+        guard let name = titleTextField.text,  !name.isEmpty else {
+             self.alertView(title: "Name Organization", message: "Make sure update Name organization")
+            return}
+        guard let urlOrg = urlTextField.text, !urlOrg.isEmpty else {
+             self.alertView(title: "Website URL", message: "Make sure update Website URL organization")
+            return}
+        let descripTextView = descriptionTextView.text
+
+        guard let descOrganization = descripTextView, !descOrganization.isEmpty else {
+              self.alertView(title: "Description", message: "Make sure update Description organization")
+            return
+        }
+        //indicator
+        navigationItem.rightBarButtonItem = activityIndicator
         
         //image
         guard let image       = logoImageView.image, image != defaultImage else {
@@ -180,16 +195,27 @@ class OrganizationViewController: UIViewController{
             return}
         guard let imageData   = image.pngData() else { return  }
 
-        //indicator
-        navigationItem.rightBarButtonItem = activityIndicator
+       
         
         //upload image
-        DataService.uploadImage(fileName: "demo01",data: imageData) { (message, error) in
+        DataService.uploadImage(fileName: name,data: imageData) { (message, error) in
              
             if error == nil {
                 
-                self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-                    self.alertView(title: "Uploaded", message: "Well Done Uploaded!")
+                guard let iconPath = message else {
+                     self.alertView(title: "Opps", message: "Something wrong with uploading Image")
+                    return  }
+                                   
+                DataService.createOrganization(name: name, icon: iconPath, url: urlOrg, desc: descOrganization) { (org, err) in
+                    
+                    guard let newOrg = org else {return}
+                    self.alertView(title: "Created", message: "New organization \(newOrg.name) created!")
+                    self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+                    return
+                    
+                }
+                
+        
             }
         }
         
