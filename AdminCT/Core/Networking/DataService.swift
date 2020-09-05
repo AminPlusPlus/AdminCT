@@ -15,7 +15,7 @@ class DataService {
     
     private static let organizationReference = Database.database(url: "https://charity-3bade-867ae.firebaseio.com").reference().child("organization")
     
-    private static let storageReference = Storage.storage().reference()
+    private static let storageReference = Storage.storage().reference().child("admin_demo")
     
     
     //MARK:- DataBase Real Time Reference
@@ -122,20 +122,31 @@ class DataService {
     
     /// Upload Image
     /// - Parameter data: Image Data
-    static func uploadImage(data : Data, completionHandler : @escaping (String?, Error?) -> Void) {
+    static func uploadImage(fileName : String,data : Data, completionHandler : @escaping (String?, Error?) -> Void) {
+        let fileName = fileName
+        let spaceRef = storageReference.child(fileName)
         
-        let uploadTask = storageReference.child("demo_admin.png").putData(data, metadata: nil) { (storageRefer, error) in
-           
-            if error == nil {
-                completionHandler(storageRefer?.storageReference?.fullPath,nil)
-                return
-                
-            }
-            
-            
-            
-            completionHandler(nil,error)
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
       
+        let uploadTask = spaceRef.putData(data, metadata: metaData) { (storageRefer, error) in
+          
+            //reference
+            guard let _ = storageRefer else {
+             completionHandler(nil,error)
+            return
+           }
+       
+            //space URL
+                spaceRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                     completionHandler(nil,error)
+                      return
+                    }
+                    print(downloadURL.absoluteString)
+                    
+                    completionHandler(downloadURL.absoluteString,nil)
+            }
         }
         uploadTask.resume()
         

@@ -174,18 +174,8 @@ class OrganizationViewController: UIViewController{
     
     @objc func save(_ sender : UIButton) {
         
-    
-        
-        guard let title       =  titleLabel.text, !title.isEmpty else {
-            self.alertView(title: "Missing Title", message: "Make sure title is not missing or empty")
-            return}
-        guard let urlWebsite  =  urlLabel.text, !urlWebsite.isEmpty else {
-            self.alertView(title: "Missing Website", message: "Make sure website address added correctly")
-            return}
-       
-        
         //image
-        guard let image       = logoImageView.image, image == defaultImage else {
+        guard let image       = logoImageView.image, image != defaultImage else {
             self.alertView(title: "Image Missing", message: "Make sure update Logo organization")
             return}
         guard let imageData   = image.pngData() else { return  }
@@ -194,12 +184,12 @@ class OrganizationViewController: UIViewController{
         navigationItem.rightBarButtonItem = activityIndicator
         
         //upload image
-        DataService.uploadImage(data: imageData) { (message, error) in
+        DataService.uploadImage(fileName: "demo01",data: imageData) { (message, error) in
              
             if error == nil {
                 
                 self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-                    //self.alertView(title: "Uploaded", message: "path \(message)")
+                    self.alertView(title: "Uploaded", message: "Well Done Uploaded!")
             }
         }
         
