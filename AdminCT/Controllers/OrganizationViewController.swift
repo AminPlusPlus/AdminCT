@@ -222,9 +222,6 @@ class OrganizationViewController: UIViewController{
                     return
 
                 }
-
-
-            
         }
         
         

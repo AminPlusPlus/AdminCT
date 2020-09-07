@@ -97,6 +97,31 @@ extension MainViewController {
   
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let organization  = self.organizations[indexPath.row].value
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (context, contextView, _ ) in
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_ ) in
+                
+                self.organizations.removeValue(forKey: organization.name)
+                
+                DispatchQueue.main.async {
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+            
+            //alert
+            self.alertView(title: "Delete", message: "Are you sure to delete \(organization.name) ?", acceptAction: deleteAction)
+            
+        }
+        
+        let swipeConfig = UISwipeActionsConfiguration(actions: [delete])
+        
+        return swipeConfig
+    }
+    
     
     
 }

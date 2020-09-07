@@ -23,7 +23,6 @@
 		0D74184C24FBFCDE00648906 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184B24FBFCDE00648906 /* DataService.swift */; };
 		0D74184E24FC026F00648906 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74184D24FC026F00648906 /* Extensions.swift */; };
 		0D74185124FC052500648906 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D74185024FC052500648906 /* ViewController.swift */; };
-		0DB8A2BE24FB4AA90030DC4C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */; };
 		3CD140F88EB1D3CF24B4ED2D /* Pods_AdminCT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493EA5D41006DBFE2913E5D9 /* Pods_AdminCT.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +45,6 @@
 		0D74184B24FBFCDE00648906 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		0D74184D24FC026F00648906 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D74185024FC052500648906 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		493EA5D41006DBFE2913E5D9 /* Pods_AdminCT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdminCT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CB81CD4A422C61E02423511 /* Pods-AdminCT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdminCT.debug.xcconfig"; path = "Target Support Files/Pods-AdminCT/Pods-AdminCT.debug.xcconfig"; sourceTree = "<group>"; };
 		C9FB0F394087BB0F67F3B1DD /* Pods-AdminCT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdminCT.release.xcconfig"; path = "Target Support Files/Pods-AdminCT/Pods-AdminCT.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 		0DB8A2BF24FB4AAC0030DC4C /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				0DB8A2BD24FB4AA90030DC4C /* Alerts.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -331,7 +328,6 @@
 				0D74184E24FC026F00648906 /* Extensions.swift in Sources */,
 				0D0FCC4124EE1ADC00124D3C /* SceneDelegate.swift in Sources */,
 				0D717C3624F8BE3E00A77431 /* CTUITextField.swift in Sources */,
-				0DB8A2BE24FB4AA90030DC4C /* Alerts.swift in Sources */,
 				0D0FCC5E24EE295C00124D3C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
