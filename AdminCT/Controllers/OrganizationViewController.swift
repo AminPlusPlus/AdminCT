@@ -21,15 +21,10 @@ class OrganizationViewController: UIViewController{
             self.urlTextField.text        = org.url
             
             navigationItem.title = org.amount.description
-        
             guard let urlImage = URL(string: org.icon) else { return }
             
             //fetch image data
-            self.logoImageView.kf.setImage(with: urlImage, placeholder: self.currentImage)  { [unowned self] (result) in
-                self.currentImage = self.logoImageView.image
-            }
-            
-           
+            self.logoImageView.kf.setImage(with: urlImage, placeholder: self.defaultImage)
             
         }
     }
@@ -45,11 +40,11 @@ class OrganizationViewController: UIViewController{
         return stackView
     }()
     
-    fileprivate var currentImage = UIImage(systemName: "plus.circle.fill")
+    fileprivate var defaultImage = UIImage(systemName: "plus.circle.fill")
     fileprivate lazy var logoImageView : UIImageView = {
         [unowned self] in
         let imageView                      = UIImageView()
-        imageView.image                    = currentImage
+        imageView.image                    = defaultImage
         imageView.contentMode              = .scaleAspectFit
         imageView.clipsToBounds            = true
         imageView.isUserInteractionEnabled = true
@@ -130,10 +125,6 @@ class OrganizationViewController: UIViewController{
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
-        //Set new organization if is not exist
-        if organization == nil {
-            self.organization = Organization()
-        }
 
         initView()
     
@@ -143,7 +134,8 @@ class OrganizationViewController: UIViewController{
     private func initView () {
         view.backgroundColor = UIColor(named: "OrgViewBG")
         
-        navigationItem.rightBarButtonItem = saveBarBtnItem
+        
+        navigationItem.rightBarButtonItem = (organization == nil) ? saveBarBtnItem : nil
         
         
         scrollView.showsHorizontalScrollIndicator = false
@@ -185,8 +177,6 @@ class OrganizationViewController: UIViewController{
     
     @objc func save(_ sender : UIButton) {
         
-
-        
         
         //Validation Input Fields
         guard let name = titleTextField.text,  !name.isEmpty else {
@@ -197,80 +187,20 @@ class OrganizationViewController: UIViewController{
             return}
         let descripTextView = descriptionTextView.text
 
-        guard let descOrganization = descripTextView, !descOrganization.isEmpty else {
+        guard let descOrganization = descripTextView, !descOrganization.isEmpty, descOrganization != "Add description" else {
               self.alertView(title: "Description", message: "Make sure update Description organization")
             return
         }
         
-        //Update organization
-        if let organization = organization {
-            
-            var logoImagePath = organization.icon
-            
-            guard let image = logoImageView.image else {return}
-            guard let imageData   = image.pngData() else { return  }
-            
-            //New Image Added // Upload create
-            if image  != currentImage {
-                DataService.uploadImage(fileName: organization.name, data: imageData) { (path, err) in
-                    
-                    guard err == nil else {
-                        self.alertView(title: "Opps", message: "Something wrong with uploading Image")
-                        return
-                        
-                    }
-                    
-                    guard let fullPath = path else {return}
-                    
-                    let updateOrg = Organization(name: organization.name, icon: fullPath, amount: organization.amount, url: urlOrg, desc: descOrganization)
-                    
-                    DataService.updateOrganization(organization: updateOrg) { (org, error) in
-                        guard let updateOrg = org else {return}
-                        self.alertView(title: "Updated", message: "update organization \(updateOrg.name)")
-                        self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-                        return
-                    }
-                    
-                }
-            }
-            
-            let updateOrg = Organization(name: organization.name, icon: logoImagePath, amount: organization.amount, url: urlOrg, desc: descOrganization)
-            
-            DataService.updateOrganization(organization: updateOrg) { (org, error) in
-                guard let updateOrg = org else {return}
-                self.alertView(title: "Update", message: "update organization \(updateOrg.name)")
-                self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-                return
-            }
-            
-        }
-        
-             
-        //MARK:- Save new Organization
-
-        
-        //indicator
-        navigationItem.rightBarButtonItem = activityIndicator
-        
+         
         //image
-        guard let image       = logoImageView.image, image != currentImage else {
+        guard let image       = logoImageView.image, image != defaultImage else {
             self.alertView(title: "Image Missing", message: "Make sure update Logo organization")
             return}
         guard let imageData   = image.pngData() else { return  }
 
-       
-        let fullImagePath = self.uploadImageSync(name: name, imageData: imageData)
-        
-        DataService.createOrganization(name: name, icon: fullImagePath, url: urlOrg, desc: descOrganization) { (org, err) in
-            
-            guard let newOrg = org else {return}
-            self.alertView(title: "Created", message: "New organization \(newOrg.name) created!")
-            self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
-            return
-            
-        }
-        
-        
+        //indicator
+        navigationItem.rightBarButtonItem = activityIndicator
         //upload image
         DataService.uploadImage(fileName: name,data: imageData) { [unowned self] (message, error)  in
 
@@ -288,6 +218,7 @@ class OrganizationViewController: UIViewController{
                     guard let newOrg = org else {return}
                     self.alertView(title: "Created", message: "New organization \(newOrg.name) created!")
                     self.navigationItem.rightBarButtonItem = self.saveBarBtnItem
+                    self.clearTextFields()
                     return
 
                 }
@@ -300,14 +231,12 @@ class OrganizationViewController: UIViewController{
     }
     
     
-    /// Update Current Organization
-    fileprivate func updateCurrentOrganization () {
-        
-    }
-    
-    /// Create new Organization
-    fileprivate func  createNewOrganization () {
-        
+    //clear textfields & Image
+    fileprivate func clearTextFields () {
+        titleTextField.text      = nil
+        urlTextField.text        = nil
+        descriptionTextView.text = "Add description"
+        logoImageView.image      = defaultImage
     }
     
     @objc func endEditing(){
@@ -320,26 +249,6 @@ class OrganizationViewController: UIViewController{
         
     }
     
-    func uploadImageSync(name : String, imageData : Data) -> String {
-        
-        var fullPath = ""
-        DispatchQueue.main.sync {
-            DataService.uploadImage(fileName: name,data: imageData) { [unowned self] (message, error)  in
-                 
-                if error == nil {
-                    
-                    guard let iconPath = message else {
-                         self.alertView(title: "Opps", message: "Something wrong with uploading Image")
-                        return  }
-                    
-                    fullPath = iconPath
-                }
-            }
-        }
-        
-        return fullPath
-    }
-
 }
 extension OrganizationViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
    
