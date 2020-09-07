@@ -42,7 +42,7 @@ class SignInViewController: UIViewController {
         return textField
     }()
     
-    let loginBtn : UIButton = {
+    lazy var loginBtn : UIButton =  {
         let btn = UIButton()
         btn.backgroundColor = UIColor.systemPink
         btn.isEnabled = false
@@ -50,6 +50,8 @@ class SignInViewController: UIViewController {
         btn.clipsToBounds = true
         btn.alpha = 0.5
         btn.setTitle("Sign In", for: .normal)
+        
+        btn.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         return btn
     }()
     
@@ -65,6 +67,9 @@ class SignInViewController: UIViewController {
     
     
     fileprivate func initView () {
+        
+        emailTextField.delegate = self
+        
         view.addSubview(appImageView)
         view.addSubview(vLoginStack)
         vLoginStack.addArrangedSubview(views: [emailTextField,passwordTextField,loginBtn])
@@ -90,14 +95,41 @@ class SignInViewController: UIViewController {
         loginBtn.snp.makeConstraints { (make) in
             make.height.equalTo(50)
         }
-        
-        
-        
     }
 
     
     
+    
+    @objc fileprivate func signIn (_ btn : UIButton) {
+        
+        guard let _  = emailTextField.text else {return}
+        guard let paswd  = passwordTextField.text, paswd.count > 5 else {
+            return
+        }
+        
+        let rootViewController = MainViewController() // SignInViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        //push view controller
+        present(navigationController, animated: true, completion: nil)
+    }
 
     
+}
+
+extension SignInViewController : UITextFieldDelegate {
+   
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text, text.hasPrefix("Admin") {
+            self.loginBtn.isEnabled = true
+            self.loginBtn.alpha = 1
+            return
+        }
+           
+        self.loginBtn.isEnabled = false
+        self.loginBtn.alpha = 0.5
+    
+    }
 }
 
